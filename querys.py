@@ -3,7 +3,11 @@ import pandas as pd
 import time
 import pandas as pd
 
-conn = cx_Oracle.connect(user='SII3BRG', password='TBS1DEG_Pcl8fxp', dsn='REDLake_ZeusP_Consumer_DALI.world')
+USER = ""
+PASSWORD = ""
+DSN = ""
+
+conn = cx_Oracle.connect(user=USER, password=PASSWORD, dsn=DSN)
 data = pd.read_excel("master_data.xlsx")
 
 data.update("'" + data["Material Bosch"].astype(str) + "'")
