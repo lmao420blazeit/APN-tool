@@ -11,7 +11,7 @@ org_view = ""
 conn = cx_Oracle.connect(user=USER, password=PASSWORD, dsn=DSN)
 data = pd.read_excel("master_data.xlsx")
 
-data.update("'" + data["Material Bosch"].astype(str) + "'")
+data.update("'" + data["Material"].astype(str) + "'")
 matnrs = data["Material Bosch"].astype(str).unique().tolist()
 matnrs = (", ".join(matnrs))
 
