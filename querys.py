@@ -6,6 +6,7 @@ import pandas as pd
 USER = ""
 PASSWORD = ""
 DSN = ""
+org_view = ""
 
 conn = cx_Oracle.connect(user=USER, password=PASSWORD, dsn=DSN)
 data = pd.read_excel("master_data.xlsx")
@@ -39,14 +40,14 @@ def query_generator(matnrs):
                                 EKPO.NETPR as "Current Price",
                                 EKKO.WAERS as Currency,
                                 '{_sys}' as SAPSYS
-                        FROM MARD_DALI_BBM.EQUK_{_sys} EQUK
+                        FROM {org_view}.EQUK_{_sys} EQUK
                         RIGHT JOIN(
                                 SELECT 
                                         QUNUM, 
                                         QUOTE,
                                         LIFNR,
                                         SOBES
-                                FROM MARD_DALI_BBM.EQUP_{_sys} 
+                                FROM {org_view}.EQUP_{_sys} 
                                 
                         ) EQUP
                         ON (EQUK.QUNUM = EQUP.QUNUM)
@@ -58,7 +59,7 @@ def query_generator(matnrs):
                                         MATKL,
                                         LOEKZ,
                                         NETPR
-                                FROM MARD_DALI_BBM.EKPO_{_sys}
+                                FROM {org_view}.EKPO_{_sys}
                         ) EKPO
                         ON (EQUK.WERKS = EKPO.WERKS AND EQUK.MATNR = EKPO.MATNR)
                         RIGHT JOIN(
@@ -70,14 +71,14 @@ def query_generator(matnrs):
                                         LIFNR,
                                         INCO1,
                                         WAERS
-                                FROM MARD_DALI_BBM.EKKO_{_sys}
+                                FROM {org_view}.EKKO_{_sys}
                         ) EKKO
                         ON (EKPO.EBELN = EKKO.EBELN AND EQUP.LIFNR = EKKO.LIFNR)
                         LEFT JOIN(
                                 SELECT 
                                         LIFNR, 
                                         NAME1
-                                FROM MARD_DALI_BBM.LFA1_{_sys}) LFA1  
+                                FROM {org_view}.LFA1_{_sys}) LFA1  
                         ON (EKKO.LIFNR = LFA1.LIFNR)
                         WHERE EQUK.VDATU < TO_CHAR (sysdate, 'YYYYMMDD') 
                                 AND EQUK.BDATU > TO_CHAR (sysdate, 'YYYYMMDD') 
