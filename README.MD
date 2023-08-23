@@ -21,6 +21,8 @@ org_view -> str: database view
 sap_machine_list -> list(str): list of strings with SAP machines
 
 -> run the script
+-> output file: /download/APN(...).xlsx
+
 | LookupKey | Plant | Material Number | Quote | Payment Terms | N10A | SAP Supplier Plant | Supplier | Incoterms | Consignment | Current Price | Currency | SAPSYS |
 |-----------|-------|-----------------|-------|---------------|------|--------------------|----------|-----------|-------------|---------------|----------|--------|
 |           |       |                 |       |               |      |                    |          |           |             |               |          |        |
