@@ -7,6 +7,7 @@ USER = ""
 PASSWORD = ""
 DSN = ""
 org_view = ""
+sap_machine_list = []
 
 conn = cx_Oracle.connect(user=USER, password=PASSWORD, dsn=DSN)
 data = pd.read_excel("master_data.xlsx")
@@ -21,7 +22,6 @@ cursor = conn.cursor()
              
 def query_generator(matnrs): 
         data = pd.DataFrame()  
-        sap_machine_list = ["p47", "p45", "p72", "p79", "p81", "p87", "p99", "POE", "PS0"]
         for _sys in sap_machine_list:
                 # PROBLEMA 
                 # CRIAR UM PROCEDIMENTO EM PL SQL QUE FAÇA LOOP POR TODAS AS MAQUINAS SAP                
